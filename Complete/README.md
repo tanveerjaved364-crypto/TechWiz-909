@@ -8,6 +8,19 @@ A runnable, source-grounded onboarding platform with a dual-pipeline design: a s
 2. Run `python app.py`.
 3. Open `http://127.0.0.1:5000`.
 
+## Role-based access
+
+The landing page is now a login page. Admin users are directed to `/admin`, where they can upload and approve documents, manage the requirement evidence, generate plans, and export reports. Employee users are directed to `/portal`, where they can see only their own assigned onboarding plan and mark modules complete.
+
+Demo accounts (change these before deployment):
+
+- Admin: `admin` / `Admin@123`
+- Training manager: `manager` / `Manager@123`
+- Reviewer: `reviewer` / `Reviewer@123`
+- Employee: `emp001` / `Welcome@123`
+
+The CRM workspace provides operational overview metrics, plan/document status charts, a review queue, searchable employee/document/matrix registers, and compliance export. Admins can manage all operational actions, managers can generate plans and track compliance, reviewers can upload and approve evidence, and employees can access only their own assigned plan. Employee sessions receive a `403` response for workspace APIs and cannot access another employee's plan. Set a strong `SKILLSPRINT_SECRET_KEY` environment variable before deploying.
+
 The first start creates `data/skillsprint.db`, 20 source documents, 150 requirements, and 10 employee profiles. The seed set includes 10 version changes/conflict pairs and 10 prompt-injection cases. Injection text is flagged and always treated as document data; it is never instructions to the system.
 
 ## Evidence and controls

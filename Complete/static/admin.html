@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Admin Workspace - SkillSprint AI</title>
+    <link rel="stylesheet" href="/static/crm.css?v=2" />
+  </head>
+  <body>
+    <aside class="side">
+      <div class="brand">SkillSprint <b>AI</b></div>
+      <p class="workspace">ONBOARDING CRM</p>
+      <nav>
+        <button class="nav active" data-view="overview">Overview</button
+        ><button class="nav" data-view="employees">Employees</button
+        ><button class="nav" data-view="documents">Documents</button
+        ><button class="nav" data-view="plans">Plans & compliance</button
+        ><button class="nav" data-view="matrix">Role matrix</button>
+      </nav>
+      <button class="logout" id="logout">Sign out</button>
+    </aside>
+    <main class="crm">
+      <header class="top">
+        <div>
+          <p class="eyebrow" id="identity">WORKSPACE</p>
+          <h1 id="title">Operations overview</h1>
+        </div>
+        <button id="csv">Export compliance CSV</button>
+      </header>
+      <div id="toast" class="toast" role="status"></div>
+      <section id="overview" class="view active">
+        <div id="metrics" class="metric-grid"></div>
+        <div class="split">
+          <section class="panel">
+            <h2>Plan verification</h2>
+            <canvas
+              id="planChart"
+              height="180"
+              aria-label="Plan verification chart"
+            ></canvas>
+          </section>
+          <section class="panel">
+            <h2>Document health</h2>
+            <canvas
+              id="docChart"
+              height="180"
+              aria-label="Document health chart"
+            ></canvas>
+          </section>
+        </div>
+        <section class="panel">
+          <h2>Review queue</h2>
+          <div id="queue"></div>
+        </section>
+      </section>
+      <section id="employees" class="view">
+        <div class="toolbar">
+          <input
+            id="employeeSearch"
+            placeholder="Search employee or role"
+          /><button id="refreshEmployees">Refresh</button>
+        </div>
+        <div class="panel table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Employee</th>
+                <th>Role</th>
+                <th>Department</th>
+                <th>Experience</th>
+                <th>Plan</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="employeeRows"></tbody>
+          </table>
+        </div>
+      </section>
+      <section id="documents" class="view">
+        <div class="split">
+          <section class="panel">
+            <h2>Upload source document</h2>
+            <form id="upload">
+              <label
+                >PDF or DOCX<input
+                  name="file"
+                  type="file"
+                  accept=".pdf,.docx"
+                  required /></label
+              ><label>Document title<input name="title" required /></label
+              ><label
+                >Version<input
+                  name="version"
+                  placeholder="e.g. 2.0"
+                  required /></label
+              ><label
+                >Applicable role<select
+                  name="role"
+                  id="uploadRole"
+                ></select></label
+              ><button>Upload for review</button>
+            </form>
+          </section>
+          <section class="panel">
+            <h2>Document register</h2>
+            <input id="docSearch" placeholder="Search documents" />
+            <div id="docs"></div>
+          </section>
+        </div>
+      </section>
+      <section id="plans" class="view">
+        <div class="panel">
+          <h2>Onboarding plans & compliance</h2>
+          <p class="sub">
+            Generate a plan from Employees, then open it here to review modules,
+            sources, quizzes and validation evidence.
+          </p>
+          <div id="plansList"></div>
+        </div>
+        <section id="planDetail" class="panel hidden"></section>
+      </section>
+      <section id="matrix" class="view">
+        <div class="toolbar">
+          <input
+            id="matrixSearch"
+            placeholder="Search role, ID or source"
+          /><span id="matrixCount"></span>
+        </div>
+        <div class="panel table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Role</th>
+                <th>Requirement</th>
+                <th>Type</th>
+                <th>Source</th>
+                <th>Stage</th>
+              </tr>
+            </thead>
+            <tbody id="matrixRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <script src="/static/admin.js?v=2"></script>
+  </body>
+</html>

@@ -1,1 +1,241 @@
-*{box-sizing:border-box}body{margin:0;background:#f7f8fc;color:#152238;font:15px Inter,Segoe UI,Arial,sans-serif}header{height:68px;background:#102a43;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:0 7%;box-shadow:0 2px 12px #102a4330}header b{font-size:21px}header span{margin-left:14px;color:#a9c7df}button{background:#17a67d;border:0;border-radius:7px;color:#fff;font-weight:700;padding:11px 15px;cursor:pointer}button:disabled{opacity:.6}main{max-width:1200px;margin:auto;padding:38px 24px}.hero{background:linear-gradient(110deg,#102a43,#176b87);color:#fff;border-radius:16px;padding:38px;margin-bottom:22px}.hero p:first-child{color:#82e6c8;text-transform:uppercase;font-weight:bold;letter-spacing:1px}.hero h1{font-size:38px;margin:8px 0}.metrics{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin:18px 0}.metrics div,article,section>div{background:#fff;border-radius:10px;padding:16px;box-shadow:0 1px 4px #15223812}.metrics b{display:block;font-size:27px;color:#176b87}.metrics small{text-transform:capitalize;color:#5b6b7b}.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}h2{font-size:19px}select,input{width:100%;padding:10px;margin:6px 0;border:1px solid #ccd6df;border-radius:6px}pre{white-space:pre-wrap;overflow:auto;background:#0f2235;color:#dceefa;min-height:180px;padding:14px;border-radius:8px;font-size:12px}em{color:#6a7280;font-style:normal;font-size:12px}table{width:100%;border-collapse:collapse;font-size:12px;background:#fff}td,th{padding:9px;border-bottom:1px solid #e4e9ee;text-align:left}th{background:#eaf4f6}@media(max-width:800px){.grid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(3,1fr)}}
+/* Shared styles for the login screen and the employee portal. */
+:root {
+  --page-background: hsla(225, 31%, 98%, 1);
+  --text-primary: hsla(211, 42%, 15%, 1);
+  --brand-dark: hsla(207, 62%, 16%, 1);
+  --brand-blue: hsla(194, 71%, 31%, 1);
+  --brand-green: hsla(162, 76%, 38%, 1);
+  --surface: hsla(0, 0%, 100%, 1);
+  --border: hsla(210, 20%, 84%, 1);
+  --muted-text: hsla(210, 14%, 43%, 1);
+  --success-surface: hsla(156, 45%, 94%, 1);
+  --danger-text: hsla(355, 66%, 44%, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--page-background);
+  color: var(--text-primary);
+  font:
+    15px Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+}
+
+header {
+  height: 68px;
+  padding: 0 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--brand-dark);
+  color: var(--surface);
+  box-shadow: 0 2px 12px hsla(207, 62%, 16%, 0.19);
+}
+
+header b {
+  font-size: 21px;
+}
+header span {
+  margin-left: 14px;
+  color: hsla(205, 46%, 77%, 1);
+}
+
+button {
+  padding: 11px 15px;
+  border: 0;
+  border-radius: 7px;
+  background: var(--brand-green);
+  color: var(--surface);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 38px 24px;
+}
+
+.hero {
+  margin-bottom: 22px;
+  padding: 38px;
+  border-radius: 16px;
+  background: linear-gradient(110deg, var(--brand-dark), var(--brand-blue));
+  color: var(--surface);
+}
+
+.hero p:first-child {
+  color: hsla(162, 68%, 71%, 1);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.hero h1 {
+  margin: 8px 0;
+  font-size: 38px;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  margin: 18px 0;
+}
+.metrics div,
+article,
+section > div {
+  padding: 16px;
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: 0 1px 4px hsla(211, 42%, 15%, 0.07);
+}
+.metrics b {
+  display: block;
+  color: var(--brand-blue);
+  font-size: 27px;
+}
+.metrics small {
+  color: var(--muted-text);
+  text-transform: capitalize;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+h2 {
+  font-size: 19px;
+}
+
+select,
+input {
+  width: 100%;
+  margin: 6px 0;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+pre {
+  min-height: 180px;
+  padding: 14px;
+  overflow: auto;
+  border-radius: 8px;
+  background: hsla(211, 57%, 13%, 1);
+  color: hsla(205, 63%, 90%, 1);
+  font-size: 12px;
+  white-space: pre-wrap;
+}
+em {
+  color: var(--muted-text);
+  font-size: 12px;
+  font-style: normal;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  font-size: 12px;
+}
+td,
+th {
+  padding: 9px;
+  border-bottom: 1px solid hsla(210, 21%, 91%, 1);
+  text-align: left;
+}
+th {
+  background: hsla(188, 33%, 94%, 1);
+}
+
+.auth {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(130deg, var(--brand-dark), var(--brand-blue));
+}
+.login-card {
+  width: min(430px, 92vw);
+  padding: 34px;
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: 0 18px 50px hsla(211, 57%, 8%, 0.4);
+}
+.login-card h1 {
+  margin: 8px 0;
+  font-size: 30px;
+}
+.eyebrow {
+  color: var(--brand-green);
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+.login-card label {
+  display: block;
+  margin-top: 14px;
+  font-weight: 700;
+}
+.login-card button {
+  width: 100%;
+  margin-top: 16px;
+}
+.login-card aside {
+  margin-top: 23px;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--success-surface);
+  font-size: 13px;
+  line-height: 1.8;
+}
+.error {
+  min-height: 18px;
+  color: var(--danger-text);
+}
+.secondary {
+  background: var(--surface);
+  color: var(--brand-dark);
+}
+
+.learning {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid hsla(210, 21%, 91%, 1);
+}
+.learning p {
+  margin: 7px 0;
+}
+.learning small {
+  color: var(--muted-text);
+}
+.learning button {
+  height: max-content;
+}
+
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .metrics {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .learning {
+    display: block;
+  }
+  .learning button {
+    margin-top: 12px;
+  }
+}

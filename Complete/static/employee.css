@@ -1,0 +1,46 @@
+/* Styles unique to the employee portal. Colors use the shared HSLA palette. */
+.employee-grid {
+  display: grid;
+  grid-template-columns: 1.55fr 0.85fr;
+  gap: 20px;
+}
+.notice {
+  display: none;
+  margin: 0 0 16px;
+  padding: 12px;
+  border-radius: 7px;
+  background: hsla(156, 54%, 94%, 1);
+  color: hsla(147, 66%, 24%, 1);
+  font-weight: 600;
+}
+.notice.show {
+  display: block;
+}
+.notice.error {
+  background: hsla(353, 78%, 95%, 1);
+  color: hsla(354, 65%, 37%, 1);
+}
+.hint,
+.submission small {
+  color: var(--muted-text);
+}
+.hint {
+  line-height: 1.5;
+}
+.submission {
+  padding: 10px 0;
+  border-bottom: 1px solid hsla(210, 21%, 91%, 1);
+}
+.completed {
+  background: hsla(153, 55%, 96%, 1);
+  opacity: 0.72;
+}
+.complete:disabled {
+  background: hsla(208, 14%, 49%, 1);
+  cursor: default;
+}
+@media (max-width: 850px) {
+  .employee-grid {
+    grid-template-columns: 1fr;
+  }
+}
