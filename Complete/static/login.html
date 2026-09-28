@@ -1,35 +1,228 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Sign in - SkillSprint AI</title>
-    <link rel="stylesheet" href="/static/style.css?v=auth1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign In &amp; Register - SkillSprint AI</title>
+    <link rel="stylesheet" href="/static/style.css?v=auth3" />
+    <style>
+      .auth-container {
+        width: min(480px, 94vw);
+        padding: 36px 32px;
+        border-radius: 18px;
+        background: #ffffff;
+        box-shadow: 0 20px 55px rgba(10, 31, 53, 0.35);
+      }
+      .auth-tabs {
+        display: flex;
+        background: #f0f4f8;
+        padding: 4px;
+        border-radius: 10px;
+        margin: 20px 0 22px;
+      }
+      .auth-tab {
+        flex: 1;
+        padding: 10px;
+        text-align: center;
+        background: transparent;
+        color: #4a5d6e;
+        font-weight: 700;
+        font-size: 14px;
+        border-radius: 8px;
+        cursor: pointer;
+        border: 0;
+        transition: all 0.2s ease;
+      }
+      .auth-tab.active {
+        background: #ffffff;
+        color: #0b3954;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+      .auth-form {
+        display: none;
+      }
+      .auth-form.active {
+        display: block;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .auth-container label {
+        display: block;
+        margin-top: 12px;
+        font-size: 13px;
+        font-weight: 700;
+        color: #2b3a4a;
+      }
+      .auth-container input,
+      .auth-container select {
+        width: 100%;
+        margin-top: 5px;
+        padding: 11px 13px;
+        border: 1px solid #cfdce6;
+        border-radius: 8px;
+        font-size: 14px;
+        background: #fafbfc;
+        transition: border-color 0.2s;
+      }
+      .auth-container input:focus,
+      .auth-container select:focus {
+        border-color: #108b96;
+        background: #ffffff;
+        outline: none;
+      }
+      .auth-btn {
+        width: 100%;
+        margin-top: 20px;
+        padding: 13px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+      .auth-msg {
+        margin: 14px 0 0;
+        font-size: 13px;
+        min-height: 18px;
+      }
+      .auth-msg.error {
+        color: #d32f2f;
+      }
+      .auth-msg.success {
+        color: #1b8a5a;
+      }
+      .demo-box {
+        margin-top: 22px;
+        padding: 14px;
+        border-radius: 10px;
+        background: #eef8f5;
+        border: 1px solid #d0efe4;
+        font-size: 13px;
+        line-height: 1.6;
+        color: #1d4d3d;
+      }
+      .demo-box b {
+        color: #0d5c3f;
+      }
+      .demo-box code {
+        background: #dff2eb;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-weight: 600;
+      }
+      .back-home {
+        display: inline-block;
+        margin-top: 18px;
+        color: #4a5d6e;
+        font-size: 13px;
+        text-decoration: none;
+      }
+      .back-home:hover {
+        color: #0b3954;
+        text-decoration: underline;
+      }
+    </style>
   </head>
   <body class="auth">
-    <main class="login-card">
-      <p class="eyebrow">SKILLSPRINT AI</p>
-      <h1>Welcome back</h1>
-      <p>Sign in to your secure learning workspace.</p>
-      <form id="login">
-        <label
-          >Username<input
-            name="username"
-            autocomplete="username"
-            required /></label
-        ><label
-          >Password<input
-            name="password"
-            type="password"
-            autocomplete="current-password"
-            required /></label
-        ><button>Sign in</button>
-        <p id="error" class="error"></p>
+    <main class="auth-container">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span class="eyebrow" style="margin:0;">SKILLSPRINT AI</span>
+        <a href="/" class="back-home" style="margin:0;">← Back to Home</a>
+      </div>
+
+      <h1 style="margin: 10px 0 4px; font-size: 26px; color:#0d283e;">Access your workspace</h1>
+      <p style="margin:0; color:#5c7080; font-size:14px;">Sign in with existing credentials or register a new account.</p>
+
+      <div class="auth-tabs" role="tablist">
+        <button class="auth-tab active" id="tabLogin" type="button">Sign In</button>
+        <button class="auth-tab" id="tabRegister" type="button">Register New Account</button>
+      </div>
+
+      <!-- Sign In Form -->
+      <form id="loginForm" class="auth-form active">
+        <label>Username
+          <input name="username" autocomplete="username" placeholder="e.g. admin or emp001" required />
+        </label>
+        <label>Password
+          <input name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required />
+        </label>
+        <button type="submit" class="auth-btn" id="loginBtn">Sign In</button>
+        <p id="loginError" class="auth-msg error"></p>
       </form>
-      <aside>
-        <b>Demo credentials</b><br />Admin: <code>admin / Admin@123</code
-        ><br />Employee: <code>emp001 / Welcome@123</code>
+
+      <!-- Self-Registration Form -->
+      <form id="registerForm" class="auth-form">
+        <label>Full Name
+          <input name="name" placeholder="e.g. Sara Ahmed" required />
+        </label>
+        <div class="form-row">
+          <label>Username
+            <input name="username" placeholder="e.g. sara.ahmed" required />
+          </label>
+          <label>Password
+            <input name="password" type="password" placeholder="Min. 6 characters" required />
+          </label>
+        </div>
+        <label>Job Role
+          <select name="role" id="registerRoleSelect" required>
+            <option value="Sales Executive">Sales Executive</option>
+            <option value="Customer Support Executive">Customer Support Executive</option>
+            <option value="HR Executive">HR Executive</option>
+            <option value="Finance Associate">Finance Associate</option>
+            <option value="Operations Coordinator">Operations Coordinator</option>
+            <option value="Marketing Executive">Marketing Executive</option>
+            <option value="Software Support Engineer">Software Support Engineer</option>
+            <option value="Branch Manager">Branch Manager</option>
+            <option value="Data Analyst">Data Analyst</option>
+            <option value="Team Leader">Team Leader</option>
+          </select>
+        </label>
+        <div class="form-row">
+          <label>Department
+            <select name="department">
+              <option value="Corporate">Corporate</option>
+              <option value="Operations">Operations</option>
+              <option value="Customer Experience">Customer Experience</option>
+              <option value="Engineering &amp; IT">Engineering &amp; IT</option>
+              <option value="Marketing &amp; Growth">Marketing &amp; Growth</option>
+              <option value="Finance &amp; Accounts">Finance &amp; Accounts</option>
+              <option value="Human Resources">Human Resources</option>
+            </select>
+          </label>
+          <label>Experience Level
+            <select name="experience">
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-row">
+          <label>Office Location
+            <select name="location">
+              <option value="Head Office">Head Office</option>
+              <option value="Regional Office">Regional Office</option>
+              <option value="Remote / Work From Home">Remote / Work From Home</option>
+            </select>
+          </label>
+          <label>Reporting Manager
+            <input name="manager" value="Manager One" />
+          </label>
+        </div>
+        <button type="submit" class="auth-btn" id="registerBtn">Create Account &amp; Start Onboarding</button>
+        <p id="registerMsg" class="auth-msg"></p>
+      </form>
+
+      <aside class="demo-box">
+        <b>Demo quick credentials:</b><br />
+        Admin / HR: <code>admin</code> / <code>Admin@123</code><br />
+        Manager: <code>manager</code> / <code>Manager@123</code><br />
+        Employee: <code>emp001</code> / <code>Welcome@123</code>
       </aside>
     </main>
-    <script src="/static/login.js?v=auth1"></script>
+
+    <script src="/static/login.js?v=auth3"></script>
   </body>
 </html>

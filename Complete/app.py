@@ -1633,6 +1633,72 @@ def test_genai():
         return jsonify(connected=False, error=str(error)[:500], message="The provider did not accept the test request. Check the key, model, quota, and restart the server."), 502
 
 
+@app.get("/api/genai/consistency")
+@api_auth("admin")
+def genai_consistency():
+    """Run repeated generations to test structural consistency of the AI output."""
+    employee = one("SELECT * FROM employees LIMIT 1")
+    if not employee:
+        return jsonify(error="No employee data found to test."), 404
+        
+    client, provider, model = configured_ai_client()
+    if not client:
+        return jsonify(error="No GenAI configured. Set GROQ_API_KEY in .env."), 400
+        
+    results = []
+    matrix = rows("SELECT * FROM requirements WHERE role IN (?, 'All Employees') ORDER BY mandatory DESC, id", (employee["role"],))
+    ai_matrix = matrix[:2] # Limit to 2 items for faster testing
+    compact_matrix = [{"id": r["id"], "rule": r["description"][:90], "required": r["mandatory"], "priority": r["priority"], "stage": r["due_stage"], "doc": r["document_id"], "section": r["section_ref"], "assessment": r["assessment"]} for r in ai_matrix]
+    request_payload = {"employee": {k: employee[k] for k in ("id", "role", "department", "experience")}, "requirements": compact_matrix, "instruction": "Return exactly one generated item for every supplied requirement. Map doc to source_document_id and section to source_section_id. Keep content concise."}
+    
+    for _ in range(3):
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                messages=[
+                    {"role": "system", "content": prompt_text()},
+                    {"role": "user", "content": json.dumps(request_payload)},
+                ],
+                response_format={"type": "json_schema", "json_schema": {"name": "onboarding_plan", "strict": False, "schema": ONBOARDING_OUTPUT_SCHEMA}} if provider == "Groq" else {"type": "json_object"},
+                temperature=0.7, # Higher temperature to test consistency
+                max_tokens=int(os.environ.get("SKILLSPRINT_GENAI_MAX_TOKENS", "3500")),
+            )
+            candidate = json.loads(response.choices[0].message.content or "{}")
+            results.append(candidate.get("generated_items", []))
+        except Exception as e:
+            pass
+
+    if len(results) < 2:
+        return jsonify(error="Failed to generate multiple iterations for comparison."), 500
+        
+    # Compare structural fields between iterations
+    match_count = 0
+    total_comparisons = 0
+    
+    for i in range(len(results) - 1):
+        items_a = {item.get("requirement_id"): item for item in results[i] if isinstance(item, dict) and item.get("requirement_id")}
+        items_b = {item.get("requirement_id"): item for item in results[i+1] if isinstance(item, dict) and item.get("requirement_id")}
+        
+        for req_id, item_a in items_a.items():
+            if req_id in items_b:
+                item_b = items_b[req_id]
+                fields_to_check = ["role", "mandatory", "source_document_id", "source_section_id", "priority", "due_stage", "difficulty"]
+                for f in fields_to_check:
+                    total_comparisons += 1
+                    if item_a.get(f) == item_b.get(f):
+                        match_count += 1
+                        
+    consistency_score = round((match_count / max(total_comparisons, 1)) * 100, 1)
+    
+    return jsonify(
+        iterations_compared=len(results),
+        fields_compared=total_comparisons,
+        matches=match_count,
+        consistency_score=consistency_score,
+        status="Consistent" if consistency_score > 90 else "Inconsistent"
+    )
+
+
 def compliance_rows():
     """Return the shared data used by CSV, PDF and Excel compliance reports."""
     output = []

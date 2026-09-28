@@ -98,3 +98,14 @@ Run the automated test suite:
 ```bash
 python -c "import tests.test_srs_controls as t; t.test_requirement_extraction_carries_classification(); t.test_validation_flags_unsupported_item(); t.test_document_formats_are_supported(); t.test_get_roles_endpoint(); t.test_public_user_registration(); t.test_admin_create_employee_and_user(); print('ALL TESTS PASSED!')"
 ```
+
+---
+
+## 🔑 Evaluator Login Details
+
+- **Admin Portal**: `http://127.0.0.1:5000/admin`
+  - Username: `admin`
+  - Password: `Admin@123`
+- **Employee Portal**: `http://127.0.0.1:5000/portal`
+  - Username: `emp001` (up to `emp010`)
+  - Password: `Welcome@123`
