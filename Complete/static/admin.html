@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Workspace - SkillSprint AI</title>
+    <link rel="stylesheet" href="/static/crm.css?v=3" />
+  </head>
+  <body>
+    <aside class="side">
+      <div class="brand">SkillSprint <b>AI</b></div>
+      <p class="workspace">ONBOARDING CRM</p>
+      <nav>
+        <button class="nav active" data-view="overview">Home</button>
+        <button class="nav" data-view="architecture">How it works</button>
+        <button class="nav" data-view="employees">1. Employees &amp; Users</button>
+        <button class="nav" data-view="documents">2. Company documents</button>
+        <button class="nav" data-view="plans">3. Training plans</button>
+        <button class="nav" data-view="engagement">HR events &amp; notices</button>
+        <button class="nav" data-view="matrix">Requirements &amp; evidence</button>
+      </nav>
+      <button class="logout" id="logout">Sign out</button>
+    </aside>
+
+    <main class="crm">
+      <header class="top">
+        <div>
+          <p class="eyebrow" id="identity">WORKSPACE</p>
+          <h1 id="title">Welcome to SkillSprint</h1>
+        </div>
+        <div class="top-actions">
+          <button id="testGenAi" class="secondary-action">Test GenAI</button>
+          <button id="startPlan">Create an onboarding plan</button>
+          <select id="reportExport" aria-label="Export report">
+            <option value="">Export report</option>
+            <option value="csv">CSV</option>
+            <option value="xlsx">Excel (.xlsx)</option>
+            <option value="pdf">PDF</option>
+          </select>
+        </div>
+      </header>
+
+      <div id="toast" class="toast" role="status"></div>
+
+      <!-- OVERVIEW VIEW -->
+      <section id="overview" class="view active">
+        <section class="welcome-panel">
+          <div>
+            <p class="eyebrow">START HERE</p>
+            <h2>Set up a new employee's learning journey</h2>
+            <p>SkillSprint turns approved company policies into verified, role-specific onboarding plans. Follow three simple steps to get started.</p>
+          </div>
+          <button class="secondary-action go-to-view" data-go-to="employees">Choose employee <span>→</span></button>
+        </section>
+
+        <section class="setup-steps" aria-label="Three simple onboarding steps">
+          <article class="setup-card">
+            <span class="setup-number">1</span>
+            <div>
+              <h3>Choose or Register an employee</h3>
+              <p>Select an existing hire or register a new account with their role and department.</p>
+              <button class="text-action go-to-view" data-go-to="employees">View employees →</button>
+            </div>
+          </article>
+          <article class="setup-card">
+            <span class="setup-number">2</span>
+            <div>
+              <h3>Check company documents</h3>
+              <p>Upload or approve policies and SOPs. These are the verified sources for learning.</p>
+              <button class="text-action go-to-view" data-go-to="documents">Manage documents →</button>
+            </div>
+          </article>
+          <article class="setup-card">
+            <span class="setup-number">3</span>
+            <div>
+              <h3>Create and review a plan</h3>
+              <p>Generate a personalized plan, then review its coverage and source evidence.</p>
+              <button class="text-action go-to-view" data-go-to="plans">Open training plans →</button>
+            </div>
+          </article>
+        </section>
+
+        <h2 class="section-heading">Workspace snapshot</h2>
+        <div id="metrics" class="metric-grid"></div>
+
+        <div class="split">
+          <section class="panel">
+            <h2>Plan verification status</h2>
+            <p class="sub">Every plan is checked against its role requirements before release.</p>
+            <canvas id="planChart" height="180" aria-label="Plan verification chart"></canvas>
+          </section>
+          <section class="panel">
+            <h2>Document status</h2>
+            <p class="sub">Keep source material current: active documents can be used; old versions cannot.</p>
+            <canvas id="docChart" height="180" aria-label="Document health chart"></canvas>
+          </section>
+        </div>
+
+        <section class="panel">
+          <h2>Things that need your attention</h2>
+          <p class="sub">Review pending documents or security flags before they affect learning plans.</p>
+          <div id="queue"></div>
+        </section>
+      </section>
+
+      <!-- ARCHITECTURE VIEW -->
+      <section id="architecture" class="view">
+        <section class="panel">
+          <p class="eyebrow">SKILLSPRINT AI CONTROL FLOW</p>
+          <h2>Source-grounded onboarding, verified independently</h2>
+          <p class="sub">Company evidence is processed into a role matrix, structured learning plans are generated, and an independent Python engine verifies coverage, traceability, and policy precedence before publication.</p>
+        </section>
+        <div class="architecture-flow" aria-label="SkillSprint AI system architecture">
+          <article class="architecture-step"><span class="step-number">1</span><div><b>Company Knowledge Sources</b><small>Policies · SOPs · Role descriptions · FAQs · Process manuals</small></div></article>
+          <div class="flow-arrow">↓</div>
+          <article class="architecture-step"><span class="step-number">2</span><div><b>Document Upload &amp; Processing</b><small>PDF / DOCX · extraction · chunks · metadata · version control</small></div></article>
+          <div class="flow-arrow">↓</div>
+          <article class="architecture-step"><span class="step-number">3</span><div><b>Role &amp; Requirement Setup</b><small>Employee profiles · role requirement matrix · mandatory and optional rules</small></div></article>
+          <div class="flow-arrow">↓</div>
+          <div class="dual-flow">
+            <article class="pipeline"><h3><span>4A</span> Generation Pipeline</h3><p>Structured plan, learning modules, checklists, tasks, quizzes and rubrics.</p><small>Controlled JSON output with source IDs</small></article>
+            <article class="pipeline"><h3><span>4B</span> Python Validation</h3><p>Coverage, traceability, contradictions, relevance and duplicate checks.</p><small>Deterministic and independent validation</small></article>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <article class="architecture-step"><span class="step-number">5</span><div><b>Result Comparison</b><small>Python expected results vs. generated content · coverage · traceability · consistency</small></div></article>
+          <div class="flow-arrow">↓</div>
+          <article class="architecture-step"><span class="step-number">6</span><div><b>Verification Decision</b><small>Verified · warning · incomplete · unsupported · manual review</small></div></article>
+          <div class="flow-arrow">↓</div>
+          <article class="architecture-step"><span class="step-number">7</span><div><b>Final Personalized Onboarding Plan</b><small>Role-based modules · tasks · checklists · quizzes · assessments across stages</small></div></article>
+          <div class="flow-arrow">↓</div>
+          <article class="architecture-step"><span class="step-number">8</span><div><b>Dashboard &amp; Reports</b><small>Progress tracking · compliance · review queue · CSV / Excel / PDF export</small></div></article>
+        </div>
+      </section>
+
+      <!-- EMPLOYEES & USERS VIEW -->
+      <section id="employees" class="view">
+        <section class="panel">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+            <div>
+              <h2>Employee &amp; User Management</h2>
+              <p class="sub" style="margin:0;">Register new team members, manage login credentials, and generate tailored onboarding plans.</p>
+            </div>
+            <button id="toggleAddEmployeeModal" class="primary-btn" style="background:#108b96; color:#fff; font-weight:700; border-radius:8px; padding:10px 16px; border:0; cursor:pointer;">+ Register New Employee</button>
+          </div>
+        </section>
+
+        <!-- New Employee & User Registration Form Panel -->
+        <section id="addEmployeePanel" class="panel" style="display:none; margin-bottom:20px; border-left:4px solid #108b96; background:#f8fafc;">
+          <h2>Register New Employee &amp; User Account</h2>
+          <p class="sub">Create both the organizational employee record and system login credentials simultaneously.</p>
+          <form id="createEmployeeForm" style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px;">
+            <label style="font-weight:600; font-size:13px;">Full Name
+              <input name="name" placeholder="e.g. Sara Ahmed" required style="width:100%; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px;" />
+            </label>
+            <label style="font-weight:600; font-size:13px;">Username
+              <input name="username" placeholder="e.g. sara.ahmed" required style="width:100%; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px;" />
+            </label>
+            <label style="font-weight:600; font-size:13px;">Initial Password
+              <input name="password" type="text" value="Welcome@123" required style="width:100%; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px;" />
+            </label>
+            <label style="font-weight:600; font-size:13px;">System Account Role
+              <select name="account_role" style="width:100%; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px;">
+                <option value="employee">Employee (Portal Access)</option>
+                <option value="manager">Manager (Planning &amp; Tracking)</option>
+                <option value="reviewer">Reviewer (Document Approval)</option>
+                <option value="admin">Administrator (Full Access)</option>
+              </select>
+            </label>
+            <label style="font-weight:600; font-size:13px;">Job Role
+              <select name="role" id="adminNewEmployeeRole" required style="width:100%; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px;">
+                <!-- Populated dynamically -->
+              </select>
+            </label>
+            <label style="font-weight:600; font-size:13px;">Department
+              <select name="department" style="width:100%; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px;">
+                <option value="Corporate">Corporate</option>
+                <option value="Operations">Operations</option>
+                <option value="Customer Experience">Customer Experience</option>
+                <option value="Engineering &amp; IT">Engineering &amp; IT</option>
+                <option value="Marketing &amp; Growth">Marketing &amp; Growth</option>
+                <option value="Finance &amp; Accounts">Finance &amp; Accounts</option>
+                <option value="Human Resources">Human Resources</option>
+              </select>
+            </label>
+            <label style="font-weight:600; font-size:13px;">Experience Level
+              <select name="experience" style="width:100%; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px;">
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+              </select>
+            </label>
+            <label style="font-weight:600; font-size:13px;">Office Location
+              <select name="location" style="width:100%; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px;">
+                <option value="Head Office">Head Office</option>
+                <option value="Regional Office">Regional Office</option>
+                <option value="Remote / Work From Home">Remote / Work From Home</option>
+              </select>
+            </label>
+            <label style="grid-column:1 / -1; font-weight:600; font-size:13px;">
+              <input type="checkbox" name="auto_generate_plan" value="1" checked style="width:auto; margin-right:8px;" />
+              Auto-generate and approve standard onboarding plan immediately
+            </label>
+            <div style="grid-column:1 / -1; display:flex; gap:10px; margin-top:6px;">
+              <button type="submit" id="saveEmployeeBtn" class="primary-btn" style="padding:10px 20px;">Save &amp; Register</button>
+              <button type="button" id="cancelAddEmployeeBtn" class="secondary-action" style="padding:10px 16px;">Cancel</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Sub Tabs -->
+        <div style="display:flex; gap:8px; margin-bottom:14px;">
+          <button id="tabEmployeeProfiles" class="secondary-action active-subtab" style="padding:8px 16px; font-weight:700; border-radius:6px; cursor:pointer;">Employee Profiles</button>
+          <button id="tabUserAccounts" class="secondary-action" style="padding:8px 16px; font-weight:700; border-radius:6px; cursor:pointer;">User Accounts &amp; Access</button>
+        </div>
+
+        <!-- Employee Profiles Table -->
+        <div id="employeeProfilesSection">
+          <div class="toolbar">
+            <input id="employeeSearch" placeholder="Search employee name or role..." />
+            <button id="refreshEmployees">Refresh</button>
+          </div>
+          <div class="panel table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Employee</th>
+                  <th>Role</th>
+                  <th>Department</th>
+                  <th>Experience</th>
+                  <th>Plan Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="employeeRows"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- System User Accounts Table -->
+        <div id="userAccountsSection" style="display:none;">
+          <div class="toolbar">
+            <input id="userSearch" placeholder="Search username, role or employee ID..." />
+            <button id="refreshUsers">Refresh Users</button>
+          </div>
+          <div class="panel table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>User ID</th>
+                  <th>Username</th>
+                  <th>System Role</th>
+                  <th>Linked Employee</th>
+                  <th>Department / Job</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="userRows"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- DOCUMENTS VIEW -->
+      <section id="documents" class="view">
+        <div class="split">
+          <section class="panel">
+            <h2>Upload source document</h2>
+            <p class="sub">Upload a readable policy or SOP (.pdf, .docx, .txt, .md). Files require review and approval before becoming active.</p>
+            <form id="upload">
+              <label style="display:block; margin-bottom:10px; font-weight:600; font-size:13px;">File (PDF, Word, TXT, MD, CSV)
+                <input name="file" type="file" accept=".pdf,.docx,.txt,.md,.csv" required style="margin-top:4px;" />
+              </label>
+              <label style="display:block; margin-bottom:10px; font-weight:600; font-size:13px;">Document title
+                <input name="title" required placeholder="e.g. Customer Escalation Policy" style="width:100%; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px;" />
+              </label>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;">
+                <label style="font-weight:600; font-size:13px;">Version
+                  <input name="version" placeholder="e.g. 2.0" required style="width:100%; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px;" />
+                </label>
+                <label style="font-weight:600; font-size:13px;">Category
+                  <select name="category" style="width:100%; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px;">
+                    <option>Company Handbook</option>
+                    <option>HR Policy</option>
+                    <option>Leave Policy</option>
+                    <option>Information Security</option>
+                    <option>Workplace Conduct</option>
+                    <option>Data Privacy</option>
+                    <option>Department SOP</option>
+                    <option>Role Description</option>
+                    <option>Process Manual</option>
+                    <option>FAQ</option>
+                    <option>Compliance</option>
+                  </select>
+                </label>
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+                <label style="font-weight:600; font-size:13px;">Department
+                  <select name="department" style="width:100%; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px;">
+                    <option>Corporate</option>
+                    <option>Operations</option>
+                    <option>Customer Experience</option>
+                    <option>Engineering &amp; IT</option>
+                    <option>Marketing</option>
+                    <option>Finance</option>
+                    <option>Human Resources</option>
+                  </select>
+                </label>
+                <label style="font-weight:600; font-size:13px;">Target Role
+                  <select name="role" id="docRoleSelect" style="width:100%; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px;">
+                    <option value="All Employees">All Employees</option>
+                  </select>
+                </label>
+              </div>
+              <button type="submit" class="primary-btn" id="uploadBtn" style="width:100%;">Upload Document</button>
+            </form>
+          </section>
+
+          <section class="panel">
+            <h2>Document register</h2>
+            <p class="sub">Filter and review documents. Active documents feed into requirement extraction.</p>
+            <div class="toolbar">
+              <input id="docSearch" placeholder="Search title or ID..." />
+            </div>
+            <div id="docs"></div>
+          </section>
+        </div>
+      </section>
+
+      <!-- PLANS VIEW -->
+      <section id="plans" class="view">
+        <section class="panel">
+          <h2>Onboarding Plans &amp; Verification</h2>
+          <p class="sub">All generated training plans with automated Python coverage and source traceability verification.</p>
+          <div id="plansList"></div>
+        </section>
+
+        <!-- Plan Review Modal / Detail View -->
+        <section id="planDetailPanel" class="panel" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h2 id="planDetailTitle">Plan Details</h2>
+            <button id="closePlanDetail" class="secondary-action" style="padding:6px 12px;">Close</button>
+          </div>
+          <div id="planDetailContent" style="margin-top:14px;"></div>
+        </section>
+      </section>
+
+      <!-- ENGAGEMENT (EVENTS & NOTICES) VIEW -->
+      <section id="engagement" class="view">
+        <div class="split">
+          <section class="panel">
+            <h2>Create HR event</h2>
+            <p class="sub">Schedule onboarding sessions, training workshops, and company events.</p>
+            <form id="eventForm">
+              <label style="display:block; margin-bottom:10px; font-weight:600; font-size:13px;">Event Title
+                <input name="title" required placeholder="e.g. Company Orientation Workshop" style="width:100%; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px;" />
+              </label>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;">
+                <label style="font-weight:600; font-size:13px;">Date
+                  <input name="event_date" type="date" required style="width:100%; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px;" />
+                </label>
+                <label style="font-weight:600; font-size:13px;">Time
+                  <input name="event_time" type="time" required style="width:100%; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px;" />
+                </label>
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;">
+                <label style="font-weight:600; font-size:13px;">Location
+                  <input name="location" placeholder="e.g. Main Boardroom / Zoom" style="width:100%; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px;" />
+                </label>
+                <label style="font-weight:600; font-size:13px;">Audience
+                  <select name="audience" style="width:100%; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px;">
+                    <option value="All Employees">All Employees</option>
+                    <option value="Corporate">Corporate Department</option>
+                    <option value="Operations">Operations Department</option>
+                    <option value="Customer Experience">Customer Experience</option>
+                    <option value="Engineering &amp; IT">Engineering &amp; IT</option>
+                  </select>
+                </label>
+              </div>
+              <label style="display:block; margin-bottom:12px; font-weight:600; font-size:13px;">Description / Instructions
+                <textarea name="description" placeholder="Optional notes for attendees" style="width:100%; min-height:70px; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px; font-family:inherit;"></textarea>
+              </label>
+              <button type="submit" class="primary-btn" style="width:100%;">Publish Event</button>
+            </form>
+          </section>
+
+          <section class="panel">
+            <h2>Post company notice</h2>
+            <p class="sub">Publish official announcements for all employees or specific departments.</p>
+            <form id="announcementForm">
+              <label style="display:block; margin-bottom:10px; font-weight:600; font-size:13px;">Notice Title
+                <input name="title" required placeholder="e.g. Updated Information Security Policy v2" style="width:100%; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px;" />
+              </label>
+              <label style="display:block; margin-bottom:10px; font-weight:600; font-size:13px;">Target Audience
+                <select name="audience" style="width:100%; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px;">
+                  <option value="All Employees">All Employees</option>
+                  <option value="Corporate">Corporate Department</option>
+                  <option value="Operations">Operations Department</option>
+                </select>
+              </label>
+              <label style="display:block; margin-bottom:12px; font-weight:600; font-size:13px;">Message
+                <textarea name="message" required placeholder="Write the announcement message here..." style="width:100%; min-height:100px; margin-top:4px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px; font-family:inherit;"></textarea>
+              </label>
+              <button type="submit" class="primary-btn" style="width:100%;">Publish Announcement</button>
+            </form>
+          </section>
+        </div>
+
+        <section class="panel">
+          <h2>Pending Leave Requests</h2>
+          <p class="sub">Review employee time-off requests submitted from the portal.</p>
+          <div id="leaveRequestsList"></div>
+        </section>
+      </section>
+
+      <!-- REQUIREMENTS MATRIX VIEW -->
+      <section id="matrix" class="view">
+        <section class="panel">
+          <h2>Role Requirement Matrix</h2>
+          <p class="sub">Independent database of 150 learning requirements extracted from approved documents.</p>
+          <div class="toolbar">
+            <input id="matrixSearch" placeholder="Search requirement ID, role, description or document..." />
+            <span id="matrixCount" style="align-self:center; font-size:13px; color:#64748b;"></span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Req ID</th>
+                  <th>Role</th>
+                  <th>Description</th>
+                  <th>Classification</th>
+                  <th>Source &amp; Section</th>
+                  <th>Due Stage</th>
+                </tr>
+              </thead>
+              <tbody id="matrixRows"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="/static/admin.js?v=3"></script>
+  </body>
+</html>

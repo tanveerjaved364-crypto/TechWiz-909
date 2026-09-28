@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Learning Portal - SkillSprint AI</title>
+    <link rel="stylesheet" href="/static/employee.css?v=3" />
+  </head>
+  <body>
+    <!-- Top Header -->
+    <header class="portal-header">
+      <div class="portal-brand">
+        SkillSprint <b>AI</b>
+        <span>Employee Portal</span>
+      </div>
+      <div class="header-right">
+        <div class="user-badge">
+          <div class="user-avatar" id="avatarInitials">EP</div>
+          <div>
+            <b id="headerUserName" style="display:block; font-size:13.5px; color:#ffffff;">Employee</b>
+            <small id="headerUserRole" style="color:#94a3b8; font-size:11.5px;">Role</small>
+          </div>
+        </div>
+        <button class="logout-btn" id="logoutBtn">Sign Out</button>
+      </div>
+    </header>
+
+    <main class="portal-main">
+      <!-- Live Notice -->
+      <div id="notice" class="notice" role="status"></div>
+
+      <!-- Hero Banner -->
+      <section class="employee-hero">
+        <div class="hero-text">
+          <p class="eyebrow">MY ONBOARDING JOURNEY</p>
+          <h1 id="welcomeGreeting">Welcome back!</h1>
+          <div class="hero-meta">
+            <span class="hero-pill" id="heroRolePill">Role: Loading...</span>
+            <span class="hero-pill" id="heroDeptPill">Dept: Corporate</span>
+            <span class="hero-pill" id="heroExpPill">Experience: Beginner</span>
+            <span class="hero-pill" id="heroManagerPill">Manager: Manager One</span>
+          </div>
+        </div>
+        <div class="hero-progress-box">
+          <b id="progressPercent">0%</b>
+          <span id="progressSummary">0 of 0 Completed</span>
+          <div class="hero-progress-bar">
+            <div class="hero-progress-fill" id="progressFill" style="width: 0%;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick Metrics Bar -->
+      <section class="metrics-row" id="metricsRow">
+        <div class="metric-card">
+          <div class="metric-icon" style="background:#ecfdf5; color:#059669;">✓</div>
+          <div>
+            <b id="metricCompleted">0</b>
+            <small>Completed Items</small>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon" style="background:#eff6ff; color:#2563eb;">📚</div>
+          <div>
+            <b id="metricTotal">0</b>
+            <small>Assigned Modules</small>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon" style="background:#fffbeb; color:#d97706;">⏳</div>
+          <div>
+            <b id="metricPending">0</b>
+            <small>Pending Tasks</small>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon" style="background:#fdf4ff; color:#9333ea;">🛡️</div>
+          <div>
+            <b id="metricCoverage">100%</b>
+            <small>Verified Policy Fit</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- Learning Roadmap & Side Guidance -->
+      <div class="portal-grid-2">
+        <!-- Assigned Learning Plan -->
+        <section class="portal-card">
+          <div class="card-title-row">
+            <h2>🎓 Assigned Learning Plan</h2>
+            <span id="planStatusTag" class="badge stage">Active Plan</span>
+          </div>
+          <p class="hint-text" id="planSubtext">Follow each module in order, review the cited company policy, complete practical tasks, and answer knowledge checks.</p>
+          
+          <div id="learningItemsList">
+            <p class="hint-text">Loading your personalized onboarding roadmap...</p>
+          </div>
+        </section>
+
+        <!-- Right Column: How to Complete & AI Recommendations -->
+        <div style="display:flex; flex-direction:column; gap:24px;">
+          <!-- Simple Guide Card -->
+          <section class="portal-card">
+            <div class="card-title-row">
+              <h2>💡 How to Complete</h2>
+            </div>
+            <ul class="steps-list">
+              <li>
+                <span class="step-num">1</span>
+                <b>Read the source policy clause</b>
+                <span>Click the source reference tag to understand the approved procedure.</span>
+              </li>
+              <li>
+                <span class="step-num">2</span>
+                <b>Perform practical tasks</b>
+                <span>Demonstrate or review the workflow with your team leader.</span>
+              </li>
+              <li>
+                <span class="step-num">3</span>
+                <b>Take knowledge checks &amp; complete</b>
+                <span>Answer the quiz and click "Mark as Complete" to track progress.</span>
+              </li>
+            </ul>
+          </section>
+
+          <!-- AI Adaptive Learning Recommendations -->
+          <section class="portal-card">
+            <div class="card-title-row">
+              <h2>✨ AI Smart Next Steps</h2>
+            </div>
+            <p class="hint-text">Source-grounded recommendations generated from your quiz attempts and role requirements.</p>
+            <button id="getRecommendationsBtn" class="complete-btn" style="width:100%; margin-bottom:14px; background:#0e7490;">Get Personalized Next Steps</button>
+            <div id="recommendationsList">
+              <p class="hint-text" style="margin:0;">Click the button above to calculate tailored study guidance.</p>
+            </div>
+          </section>
+
+          <!-- Submit Requested Evidence -->
+          <section class="portal-card">
+            <div class="card-title-row">
+              <h2>📤 Supporting Evidence Upload</h2>
+            </div>
+            <p class="hint-text">Submit signed forms, certificates, or acknowledgements when requested by HR.</p>
+            <form id="submitDocForm" class="leave-form">
+              <label>Document Title
+                <input name="title" placeholder="e.g. Code of Conduct Acknowledgement" required />
+              </label>
+              <label>Version
+                <input name="version" placeholder="1.0" required />
+              </label>
+              <label>Choose File (PDF or Word)
+                <input name="file" type="file" accept=".pdf,.docx,.txt,.md" required />
+              </label>
+              <button type="submit" id="submitDocBtn">Submit for HR Review</button>
+            </form>
+            <div style="margin-top:16px;">
+              <b style="font-size:13px; color:#0f172a;">Recent Submissions</b>
+              <div id="submissionsList" style="margin-top:6px;">
+                <p class="hint-text">No files submitted yet.</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- Events, Notices & Leaves Grid -->
+      <div class="portal-grid-equal">
+        <!-- Events & Announcements -->
+        <section class="portal-card">
+          <div class="card-title-row">
+            <h2>📅 Events &amp; Notices</h2>
+          </div>
+          <div style="margin-bottom:18px;">
+            <b style="font-size:13.5px; color:#0f172a;">Upcoming Sessions</b>
+            <div id="employeeEventsList" style="margin-top:8px;">
+              <p class="hint-text">No upcoming events scheduled right now.</p>
+            </div>
+          </div>
+          <div>
+            <b style="font-size:13.5px; color:#0f172a;">Company Notices</b>
+            <div id="employeeAnnouncementsList" style="margin-top:8px;">
+              <p class="hint-text">No company notices right now.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Leave Requests & Time Off -->
+        <section class="portal-card">
+          <div class="card-title-row">
+            <h2>🏖️ Request Time Off</h2>
+          </div>
+          <form id="leaveRequestForm" class="leave-form">
+            <label>Leave Type
+              <select name="leave_type">
+                <option value="Annual leave">Annual leave</option>
+                <option value="Sick leave">Sick leave</option>
+                <option value="Casual leave">Casual leave</option>
+                <option value="Emergency leave">Emergency leave</option>
+              </select>
+            </label>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+              <label>Start Date
+                <input name="start_date" type="date" required />
+              </label>
+              <label>End Date
+                <input name="end_date" type="date" required />
+              </label>
+            </div>
+            <label>Reason / Note
+              <textarea name="reason" placeholder="Briefly explain the leave reason..." required style="min-height:70px;"></textarea>
+            </label>
+            <button type="submit" id="sendLeaveBtn">Submit Leave Request</button>
+          </form>
+
+          <div style="margin-top:20px;">
+            <b style="font-size:13.5px; color:#0f172a;">My Leave History</b>
+            <div id="leaveRequestsList" style="margin-top:8px;">
+              <p class="hint-text">You have not submitted any leave requests yet.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="/static/employee.js?v=3"></script>
+  </body>
+</html>

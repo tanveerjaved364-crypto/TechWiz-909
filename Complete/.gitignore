@@ -1,0 +1,12 @@
+# Private service credentials and local runtime data
+skillsprint-2605d-firebase-adminsdk-*.json
+firebase-service-account.json
+.env
+__pycache__/
+*.pyc
+data/skillsprint.db
+data/skillsprint-before-cleanup-*.db
+data/uploads/
+tmp/
+.pytest_cache/
+*.log
