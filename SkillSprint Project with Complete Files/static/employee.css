@@ -1,0 +1,57 @@
+/* Styles unique to the employee portal. Colors use the shared HSLA palette. */
+.employee-grid {
+  display: grid;
+  grid-template-columns: 1.55fr 0.85fr;
+  gap: 20px;
+}
+.engagement-grid { grid-template-columns: 1fr 1fr; margin: 18px 0; }
+.leave-grid { grid-template-columns: 1fr 1fr; margin: 18px 0; }
+.leave-dates { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.leave-grid textarea { min-height:88px; width:100%; padding:10px; border:1px solid var(--border); border-radius:6px; font:inherit; }
+.leave-status { display:inline-block; margin-top:4px; padding:4px 8px; border-radius:99px; color:#176c45; background:#e6f7ef; font-size:12px; font-weight:800; }
+.leave-status.Declined { color:#a32734; background:#fcebed; }
+.leave-status.Pending { color:#8a5c00; background:#fff5d9; }
+.engagement-item { padding: 12px 0; border-bottom: 1px solid hsla(210, 21%, 91%, 1); }
+.engagement-item:last-child { border-bottom: 0; }
+.engagement-item p { margin: 5px 0; color: var(--brand-blue); font-size: 13px; font-weight: 700; }
+.engagement-item small { color: var(--muted-text); line-height: 1.4; }
+.notice {
+  display: none;
+  margin: 0 0 16px;
+  padding: 12px;
+  border-radius: 7px;
+  background: hsla(156, 54%, 94%, 1);
+  color: hsla(147, 66%, 24%, 1);
+  font-weight: 600;
+}
+.notice.show {
+  display: block;
+}
+.notice.error {
+  background: hsla(353, 78%, 95%, 1);
+  color: hsla(354, 65%, 37%, 1);
+}
+.hint,
+.submission small {
+  color: var(--muted-text);
+}
+.hint {
+  line-height: 1.5;
+}
+.submission {
+  padding: 10px 0;
+  border-bottom: 1px solid hsla(210, 21%, 91%, 1);
+}
+.completed {
+  background: hsla(153, 55%, 96%, 1);
+  opacity: 0.72;
+}
+.complete:disabled {
+  background: hsla(208, 14%, 49%, 1);
+  cursor: default;
+}
+@media (max-width: 850px) {
+  .employee-grid {
+    grid-template-columns: 1fr;
+  }
+}

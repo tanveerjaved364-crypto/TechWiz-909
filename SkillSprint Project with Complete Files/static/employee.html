@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>My Learning - SkillSprint AI</title>
+    <link rel="stylesheet" href="/static/style.css?v=employee2" />
+    <link rel="stylesheet" href="/static/employee.css?v=1" />
+  </head>
+  <body>
+    <header>
+      <div><b>SkillSprint AI</b><span>Employee Learning Portal</span></div>
+      <button class="secondary" id="logout">Logout</button>
+    </header>
+    <main>
+      <section class="hero">
+        <p>MY ONBOARDING</p>
+        <h1 id="welcome">Your learning path</h1>
+        <p id="role">Loading your profile...</p>
+      </section>
+      <div id="notice" class="notice" role="status"></div>
+      <section id="progress" class="metrics"></section>
+      <section class="employee-grid engagement-grid">
+        <article><h2>Upcoming events</h2><p class="hint">Orientation, training sessions and company events chosen for your role or department.</p><div id="employeeEvents"></div></article>
+        <article><h2>Company notices</h2><p class="hint">Important updates from HR and your managers.</p><div id="employeeAnnouncements"></div></article>
+      </section>
+      <section class="employee-grid leave-grid">
+        <article><h2>Request time off</h2><p class="hint">Send your leave request to HR. You will see the decision here once it is reviewed.</p><form id="leaveForm"><label>Leave type<select name="leave_type"><option>Annual leave</option><option>Sick leave</option><option>Emergency leave</option></select></label><div class="leave-dates"><label>Start date<input name="start_date" type="date" required /></label><label>End date<input name="end_date" type="date" required /></label></div><label>Reason<textarea name="reason" placeholder="Briefly explain the leave request" required></textarea></label><button>Send leave request</button></form></article>
+        <article><h2>My leave requests</h2><div id="leaveRequests"></div></article>
+      </section>
+      <section class="employee-grid">
+        <article>
+          <h2>Assigned learning plan</h2>
+          <p id="status"></p>
+          <div id="items"></div>
+        </article>
+        <article>
+          <h2>Submit supporting document</h2>
+          <p class="hint">
+            Send a readable PDF or DOCX to HR for review. Your document stays
+            pending until an administrator or reviewer approves it. Scanned,
+            image-only files cannot be read by the system.
+          </p>
+          <form id="submitDoc">
+            <input name="file" type="file" accept=".pdf,.docx" required />
+            <input name="title" placeholder="Document title" required/>
+            <input name="version" placeholder="Version e.g. 1.0" required/>
+            <button>Send to HR for review</button>
+          </form>
+          <h3>My submissions</h3>
+          <div id="submissions"></div>
+        </article>
+      </section>
+    </main>
+    <script src="/static/employee.js?v=employee2"></script>
+  </body>
+</html>

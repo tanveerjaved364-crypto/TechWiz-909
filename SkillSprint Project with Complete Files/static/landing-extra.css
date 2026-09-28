@@ -1,0 +1,7 @@
+.hero-card { padding: 0; overflow: hidden; }
+
+.hero-card > img { width: 100%; height: 150px; display: block; object-fit: cover; }
+
+.hero-card-content { padding: 22px 27px 27px; }
+
+@media (max-width: 760px) { .hero-card > img { height: 180px; } }

@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Admin Workspace - SkillSprint AI</title>
+    <link rel="stylesheet" href="/static/crm.css?v=2" />
+  </head>
+  <body>
+    <aside class="side">
+      <div class="brand">SkillSprint <b>AI</b></div>
+      <p class="workspace">ONBOARDING CRM</p>
+      <nav>
+        <button class="nav active" data-view="overview">Home</button
+        ><button class="nav" data-view="architecture">How it works</button
+        ><button class="nav" data-view="employees">1. Employees</button
+        ><button class="nav" data-view="documents">2. Company documents</button
+        ><button class="nav" data-view="plans">3. Training plans</button
+        ><button class="nav" data-view="engagement">HR events &amp; notices</button
+        ><button class="nav" data-view="matrix">Requirements & evidence</button>
+      </nav>
+      <button class="logout" id="logout">Sign out</button>
+    </aside>
+    <main class="crm">
+      <header class="top">
+        <div>
+          <p class="eyebrow" id="identity">WORKSPACE</p>
+          <h1 id="title">Welcome to SkillSprint</h1>
+        </div>
+        <div class="top-actions"><button id="testGenAi" class="secondary-action">Test GenAI</button><button id="startPlan">Create an onboarding plan</button>
+          <select id="reportExport" aria-label="Export report"><option value="">Export report</option><option value="csv">CSV</option>
+            <option value="xlsx">Excel (.xlsx)</option><option value="pdf">PDF</option></select></div>
+      </header>
+      <div id="toast" class="toast" role="status"></div>
+      <section id="overview" class="view active">
+        <section class="welcome-panel">
+          <div>
+            <p class="eyebrow">START HERE</p>
+            <h2>Set up a new employee's learning journey</h2>
+            <p>SkillSprint turns your approved company documents into a role-specific onboarding plan. Follow these three simple steps—nothing is published without checks.</p>
+          </div>
+          <button class="secondary-action go-to-view" data-go-to="employees">Choose employee <span>→</span></button>
+        </section>
+        <section class="setup-steps" aria-label="Three simple onboarding steps">
+          <article class="setup-card">
+            <span class="setup-number">1</span><div><h3>Choose an employee</h3><p>Select the new hire and confirm their role, department and experience level.</p><button class="text-action go-to-view" data-go-to="employees">View employees →</button></div>
+          </article>
+          <article class="setup-card">
+            <span class="setup-number">2</span><div><h3>Check company documents</h3><p>Upload or approve policies and SOPs. These are the only sources used for learning.</p><button class="text-action go-to-view" data-go-to="documents">Manage documents →</button></div>
+          </article>
+          <article class="setup-card">
+            <span class="setup-number">3</span><div><h3>Create and review a plan</h3><p>Generate a personalized plan, then review its coverage and source evidence.</p><button class="text-action go-to-view" data-go-to="plans">Open training plans →</button></div>
+          </article>
+        </section>
+        <h2 class="section-heading">Workspace snapshot</h2>
+        <div id="metrics" class="metric-grid"></div>
+        <div class="split">
+          <section class="panel">
+            <h2>Plan verification status</h2>
+            <p class="sub">Every plan is checked against its role requirements before it is shown to the employee.</p>
+            <canvas
+              id="planChart"
+              height="180"
+              aria-label="Plan verification chart"
+            ></canvas>
+          </section>
+          <section class="panel">
+            <h2>Document status</h2>
+            <p class="sub">Keep source material current: active documents can be used; old versions cannot.</p>
+            <canvas
+              id="docChart"
+              height="180"
+              aria-label="Document health chart">
+            </canvas>
+          </section>
+        </div>
+        <section class="panel">
+          <h2>Things that need your attention</h2>
+          <p class="sub">Review pending documents or security flags before they affect learning plans.</p>
+          <div id="queue"></div>
+        </section>
+      </section>
+      <section id="architecture" class="view">
+        <section class="architecture-intro panel">
+          <p class="eyebrow">SKILLSPRINT AI CONTROL FLOW</p>
+          <h2>Source-grounded onboarding, verified independently</h2>
+          <p class="sub">This workflow follows the application architecture: company evidence is processed into a role matrix, a structured learning plan is generated, and an independent Python engine verifies coverage, traceability and safety before publication.</p>
+        </section>
+        <div class="architecture-flow" aria-label="SkillSprint AI system architecture">
+          <article class="architecture-step source-step"><span class="step-number">1</span><div><b>Company Knowledge Sources</b><small>Policies · SOPs · Role descriptions · FAQs · Process manuals</small></div></article>
+          <div class="flow-arrow">↓</div>
+          <article class="architecture-step source-step"><span class="step-number">2</span><div><b>Document Upload &amp; Processing</b><small>PDF / DOCX · extraction · chunks · metadata · version control</small></div></article>
+          <div class="flow-arrow">↓</div>
+          <article class="architecture-step source-step"><span class="step-number">3</span><div><b>Role &amp; Requirement Setup</b><small>Employee profiles · role requirement matrix · mandatory and optional rules</small></div></article>
+          <div class="dual-flow">
+            <article class="pipeline pipeline-ai"><h3><span>4A</span> Generation Pipeline</h3><p>Structured plan, learning modules, checklists, tasks, quizzes and assessments.</p><small>Controlled JSON output with source IDs</small></article>
+            <article class="pipeline pipeline-python"><h3><span>4B</span> Python Validation</h3><p>Requirement coverage, traceability, contradictions, relevance and duplicate checks.</p><small>Deterministic and independent validation</small></article>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <article class="architecture-step result-step"><span class="step-number">5</span><div><b>Result Comparison</b><small>Python expected results vs. generated content · coverage · traceability · consistency</small></div></article>
+          <div class="flow-arrow">↓</div>
+          <article class="architecture-step result-step"><span class="step-number">6</span><div><b>Verification Decision</b><small>Verified · warning · incomplete · unsupported · contradictory · manual review</small></div></article>
+          <div class="flow-arrow">↓</div>
+          <article class="architecture-step result-step"><span class="step-number">7</span><div><b>Final Personalized Onboarding Plan</b><small>Role-based modules · tasks · checklists · quizzes · assessments across six stages</small></div></article>
+          <div class="flow-arrow">↓</div>
+          <article class="architecture-step result-step"><span class="step-number">8</span><div><b>Dashboard &amp; Reports</b><small>Progress tracking · compliance · review queue · CSV export · role analytics</small></div></article>
+        </div>
+      </section>
+      <section id="employees" class="view">
+        <section class="view-help panel">
+          <h2>Choose who needs a plan</h2>
+          <p class="sub">Find the employee by name or job role, then press <b>Generate plan</b>. SkillSprint automatically uses the learning requirements for that role.</p>
+        </section>
+        <div class="toolbar">
+          <input
+            id="employeeSearch"
+            placeholder="Search employee or role"/>
+            <button id="refreshEmployees">Refresh</button>
+        </div>
+        <div class="panel table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Employee</th>
+                <th>Role</th>
+                <th>Department</th>
+                <th>Experience</th>
+                <th>Plan</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="employeeRows"></tbody>
+          </table>
+        </div>
+      </section>
+      <section id="documents" class="view">
+        <div class="split">
+          <section class="panel">
+            <h2>Upload source document</h2>
+            <p class="sub">Upload a readable PDF or DOCX policy/SOP. A scanned image-only file cannot be used because SkillSprint needs to read its text.</p>
+            <form id="upload">
+              <label>PDF or DOCX<input name="file" type="file" accept=".pdf,.docx" required /></label>
+              <label>Document title<input name="title" required /></label>
+              <label>Version<input  name="version"  placeholder="e.g. 2.0" required />
+                </label>
+                <label>Applicable role<select  name="role"  id="uploadRole"></select></label>
+                <button>Upload for review</button>
+            </form>
+          </section>
+          <section class="panel">
+            <h2>Document register</h2>
+            <input id="docSearch" placeholder="Search documents"/>
+            <div id="docs"></div>
+          </section>
+        </div>
+      </section>
+      <section id="plans" class="view">
+        <div class="panel">
+          <h2>Training plans</h2>
+          <p class="sub">
+            To make a new plan, open <b>Employees</b>, choose the employee and press <b>Generate plan</b>. Every generated plan appears below with its evidence check.
+          </p>
+          <div id="plansList"></div>
+        </div>
+        <section id="planDetail" class="panel hidden"></section>
+      </section>
+      <section id="engagement" class="view">
+        <section class="view-help panel"><h2>Keep employees informed</h2><p class="sub">Add orientation sessions, training events, town halls or company notices. Employees only see items meant for everyone, their department or their role.</p></section>
+        <div class="split">
+          <section class="panel"><h2>Add employee event</h2><form id="eventForm"><label>Event title<input name="title" placeholder="e.g. New hire orientation" required /></label><div class="compact-fields"><label>Date<input name="event_date" type="date" required /></label><label>Time<input name="event_time" type="time" required /></label></div><label>Location / meeting link<input name="location" placeholder="e.g. Main office, Room 4" /></label><label>Who should see it?<select name="audience" id="eventAudience"></select></label><label>What should employees know?<input name="description" placeholder="Short agenda or instructions" /></label><button>Add event</button></form></section>
+          <section class="panel"><h2>Publish a notice</h2><form id="announcementForm"><label>Notice title<input name="title" placeholder="e.g. Friday office timings" required /></label><label>Who should see it?<select name="audience" id="noticeAudience"></select></label><label>Message<textarea name="message" placeholder="Write a clear, short update for employees" required></textarea></label><button>Publish notice</button></form></section>
+        </div>
+        <div class="split"><section class="panel"><h2>Upcoming events</h2><div id="eventsList"></div></section><section class="panel"><h2>Recent notices</h2><div id="announcementsList"></div></section></div>
+        <section class="panel"><h2>Leave requests</h2><p class="sub">Review employee leave requests here. Approval or decline is recorded for the employee.</p><div id="leaveRequestsList"></div></section>
+      </section>
+      <section id="matrix" class="view">
+        <div class="toolbar">
+          <input
+            id="matrixSearch"
+            placeholder="Search role, ID or source"
+          /><span id="matrixCount"></span>
+        </div>
+        <div class="panel table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Role</th>
+                <th>Requirement</th>
+                <th>Type</th>
+                <th>Source</th>
+                <th>Stage</th>
+              </tr>
+            </thead>
+            <tbody id="matrixRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <script src="/static/admin.js?v=2"></script>
+  </body>
+</html>
