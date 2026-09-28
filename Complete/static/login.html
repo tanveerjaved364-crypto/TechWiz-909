@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Sign in - SkillSprint AI</title>
+    <link rel="stylesheet" href="/static/style.css?v=auth1" />
+  </head>
+  <body class="auth">
+    <main class="login-card">
+      <p class="eyebrow">SKILLSPRINT AI</p>
+      <h1>Welcome back</h1>
+      <p>Sign in to your secure learning workspace.</p>
+      <form id="login">
+        <label
+          >Username<input
+            name="username"
+            autocomplete="username"
+            required /></label
+        ><label
+          >Password<input
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            required /></label
+        ><button>Sign in</button>
+        <p id="error" class="error"></p>
+      </form>
+      <aside>
+        <b>Demo credentials</b><br />Admin: <code>admin / Admin@123</code
+        ><br />Employee: <code>emp001 / Welcome@123</code>
+      </aside>
+    </main>
+    <script src="/static/login.js?v=auth1"></script>
+  </body>
+</html>
