@@ -1,0 +1,376 @@
+/* SkillSprint AI - Landing Page Stylesheet */
+:root {
+  --brand-navy: #0d233a;
+  --brand-blue: #0b4f6c;
+  --brand-teal: #0e7490;
+  --brand-cyan: #06b6d4;
+  --brand-emerald: #059669;
+  --text-dark: #0f172a;
+  --text-body: #334155;
+  --text-muted: #64748b;
+  --bg-light: #f8fafc;
+  --border-light: #e2e8f0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #ffffff;
+  color: var(--text-body);
+  line-height: 1.6;
+}
+
+/* Header */
+.site-header {
+  height: 72px;
+  padding: 0 8%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border-bottom: 1px solid var(--border-light);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.brand {
+  font-size: 21px;
+  font-weight: 800;
+  color: var(--brand-navy);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.brand b {
+  color: var(--brand-teal);
+}
+
+nav a {
+  margin: 0 14px;
+  color: var(--text-body);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+nav a:hover {
+  color: var(--brand-teal);
+}
+
+.login-link {
+  padding: 8px 18px;
+  background: var(--brand-teal);
+  color: #ffffff !important;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.login-link:hover {
+  background: #0b5e75;
+}
+
+/* Main */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Hero */
+.hero {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 64px 0 48px;
+}
+
+.eyebrow {
+  color: var(--brand-teal);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+}
+
+.hero h1 {
+  font-size: 42px;
+  line-height: 1.15;
+  color: var(--brand-navy);
+  margin: 0 0 16px;
+  font-weight: 800;
+}
+
+.lead {
+  font-size: 17px;
+  color: var(--text-muted);
+  margin: 0 0 28px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+a.primary {
+  padding: 12px 24px;
+  background: var(--brand-teal);
+  color: #ffffff;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+a.secondary {
+  padding: 12px 24px;
+  background: #f1f5f9;
+  color: var(--text-dark);
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.trust {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.hero-card {
+  background: var(--bg-light);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.hero-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-card-content {
+  padding: 24px;
+}
+
+.hero-card-content ol {
+  padding-left: 0;
+  list-style: none;
+  margin: 16px 0;
+}
+
+.hero-card-content li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.hero-card-content li span {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #e0f2fe;
+  color: var(--brand-teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.status {
+  padding: 12px;
+  background: #ecfdf5;
+  border-radius: 8px;
+  border: 1px solid #a7f3d0;
+  font-size: 13px;
+  color: #065f46;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Stats */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding: 32px 0;
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+  margin: 32px 0;
+  text-align: center;
+}
+
+.stats div b {
+  display: block;
+  font-size: 28px;
+  color: var(--brand-navy);
+}
+
+.stats div span {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Features */
+.section {
+  padding: 48px 0;
+}
+
+.section h2 {
+  font-size: 28px;
+  color: var(--brand-navy);
+  margin: 0 0 32px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.feature-grid article {
+  background: var(--bg-light);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.feature-grid article i {
+  font-style: normal;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--brand-teal);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.feature-grid article h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+  color: var(--brand-navy);
+}
+
+.feature-grid article p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* Workflow */
+.workflow {
+  padding: 48px 0;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 40px;
+}
+
+.workflow-list article {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.workflow-list span {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--brand-teal);
+}
+
+.workflow-list b {
+  display: block;
+  font-size: 16px;
+  color: var(--brand-navy);
+}
+
+.workflow-list p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* Roles */
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.role-grid article {
+  padding: 24px;
+  background: var(--bg-light);
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+}
+
+.role-grid h3 {
+  margin: 0 0 8px;
+  color: var(--brand-navy);
+}
+
+.role-grid p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* CTA */
+.cta {
+  background: linear-gradient(135deg, var(--brand-navy), var(--brand-blue));
+  border-radius: 16px;
+  padding: 48px;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 48px 0;
+}
+
+.cta h2 {
+  color: #ffffff;
+  margin: 6px 0 0;
+  font-size: 26px;
+}
+
+.cta .eyebrow {
+  color: #2dd4bf;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 32px;
+  border-top: 1px solid var(--border-light);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+@media (max-width: 900px) {
+  .hero, .workflow, .cta {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+  .feature-grid, .role-grid, .stats {
+    grid-template-columns: 1fr;
+  }
+}

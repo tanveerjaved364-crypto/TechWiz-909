@@ -1,0 +1,6 @@
+Demo quick credentials:
+
+
+Admin / HR: admin / Admin@123
+
+Employee: emp001 / Welcome@123

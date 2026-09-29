@@ -1,0 +1,5 @@
+# Sample IT Policy - Evidence Submission
+Employee: emp001
+Task: Demonstrate understanding of company IT policies.
+
+I have read and understood the IT usage guidelines. I will ensure all passwords are changed every 90 days and I will not share sensitive data outside the organization.
